@@ -40,6 +40,6 @@ class Comment(Base):
     commenter_name = Column(String(50), nullable=False)
     created_on = Column(TIMESTAMP)
 
-post = relationship("Post", back_populates= "comments")
+    post = relationship("Post", back_populates= "comments")
 
 
