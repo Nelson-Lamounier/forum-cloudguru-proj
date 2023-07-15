@@ -1,0 +1,29 @@
+This file is for command line to use in order to test the functionality 
+
+Open a REPL, create an engine and a session, and load in some Post and Comment objects to ensure that the library is working as expected. (For the engine, you'll need to use the username of admin, a password of password, the public IP address of the database server, port 80, and a database name of forum.)
+
+(forum) $ python
+
+>>> from sqlalchemy import create_engine
+
+>>> from sqlalchemy.orm import sessionmaker
+
+>>> from forum.models import Post, Comment
+
+>>> engine = create_engine("postgresql://admin:password@PUBLIC_IP:80/forum")
+
+>>> Session = sessionmaker(bind=engine)
+
+>>> session = Session()
+
+>>> posts = session.query(Post).limit(10).all()
+
+>>> post = posts[0]
+
+>>> post.__dict__
+
+{'_sa_instance_state': <sqlalchemy.orm.state.InstanceState object at 0x1057ae210>, 'body': 'Voluptatem voluptatem eius numquam neque magnam.', 'id': 1, 'created_on': datetime.datetime(2019, 7, 31, 19, 9, 28, 730416), 'author_name': 'Nelson Schacht', 'comments': [<forum.models.Comment object at 0x1057bda10>, <forum.models.Comment object at 0x1057bdad0>]}
+
+>>> post.comments[0].__dict__
+
+{'_sa_instance_state': <sqlalchemy.orm.state.InstanceState object at 0x1057bd9d0>, 'comment': 'Aliquam sed dolor numquam non. Quiquia velit etincidunt est ipsum. Numquam tempora etincidunt velit sed quisquam. Etincidunt ipsum amet etincidunt adipisci ut modi. Numquam aliquam velit dolorem quisquam dolorem voluptatem. Dolor velit quiquia sit etincidunt eius aliquam. Est magnam aliquam eius est consectetur tempora. Quaerat modi quiquia adipisci modi quaerat tempora quisquam. Sit neque sit sed quisquam porro dolore. Labore dolorem tempora eius adipisci ipsum adipisci.', 'id': 36, 'commenter_name': 'James Chavez', 'sentiment': 'postitive', 'post_id': 1, 'created_on': datetime.datetime(2019, 7, 31, 19, 9, 28, 956082)}
